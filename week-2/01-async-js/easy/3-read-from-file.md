@@ -1,4 +1,8 @@
 ## Reading the contents of a file
+var fs = require("fs")
+var data = fs.readFileSync("input.txt", "utf-8",function(err,data){
+    console.log(data); 
+})
 
 Write code to read contents of a file and print it to the console. 
 You can use the fs library to as a black box, the goal is to understand async tasks. 

@@ -45,5 +45,76 @@
   const app = express();
   
   app.use(bodyParser.json());
+  const port = 3000;
+  let todos = [];
   
   module.exports = app;
+  app.get("/todos",(req,res)=>{
+    res.json(todos)
+  })
+  app.get("/todos/:id",(req,res)=>{
+    let id1 = req.params.id;
+    let todo = todos.find((todo)=>todo.id==id1)
+    if(todo){
+      res.json(todo)}
+      else{
+        res.status(404).send("Not Found");}
+      })
+  app.post("/todos",(req,res)=>{
+    const todo1 = {
+      id: Math.floor(Math.random()*10000)+1,
+      title: req.body.title,
+      description: req.body.description
+    }
+    todos.push(todo1);
+    res.status(201).json(todo1);
+
+  })
+  app.put("/todos/:id",(req,res)=>{
+    let id1 = parseInt(req.params.id);
+    console.log(id1);
+    let todoElem = todos.find((todoItem)=>{
+      
+      return todoItem.id===id1
+      
+  })
+    
+    console.log(todoElem)
+    if(todoElem){
+      todoElem["title"] = req.body.title;
+      todoElem["description"] = req.body.description;
+      res.json(todoElem);
+    }
+    else{
+      res.status(404).send("Not Found");
+      }
+      });
+
+
+  app.delete("/todos/:id",(req,res)=>{
+    let id2 = parseInt(req.params.id);
+    let todoIndex = todos.findIndex((todoInd)=> {return (todoInd.id===id2)})
+    if(todoIndex != -1){
+      let sendElm = todos[todoIndex];
+      
+      todos.splice(todoIndex,1);
+      res.json(sendElm);
+      
+    }
+    else{
+      res.status(404).send("Not Found");
+    }
+    })
+    
+  app.listen(port,()=>{
+    console.log(`Example app listening on port ${port}`)
+  })
+
+  
+
+
+
+
+
+
+
