@@ -9,7 +9,7 @@ app.use(cors({})) ;
 
 app.post("/card", async (req,res)=>{
     const payload = req.body;
-    console.log(payload)
+    
     const parsedPayload = createCard.safeParse(payload);
     if(!parsedPayload.success){
         return res.status(411).json({

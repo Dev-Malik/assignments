@@ -1,5 +1,6 @@
 const mongoose = require("mongoose")
-mongoose.connect("mongodb+srv://devmalik2211:debu123@cluster0.smnwwnf.mongodb.net/card")
+const URI = require("./uri.js")
+mongoose.connect(URI)
 
 const cardSchema = mongoose.Schema({
     name: String,
